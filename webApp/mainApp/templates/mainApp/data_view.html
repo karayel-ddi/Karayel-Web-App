@@ -1,0 +1,122 @@
+{% extends 'mainApp/base.html' %}
+
+{% block title %}Veri Görüntüleme - Karayel Q&A{% endblock %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'mainApp/css/data_view.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="data-view-container">
+    <h1>Veri Görüntüleme</h1>
+
+    <div class="controls">
+        <div class="collection-selector">
+            <select id="collectionSelect">
+                <option value="qa_data" {% if collection=='qa_data' %}selected{% endif %}>QA Data</option>
+                <option value="raw_data" {% if collection=='raw_data' %}selected{% endif %}>Raw Data</option>
+            </select>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Ara...">
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Soru</th>
+                    <th>Cevaplar</th>
+                    <th>Kategori</th>
+                    <th>Değişiklik Tarihi</th>
+                    {% if collection == 'qa_data' %}
+                    <th>Onay Tarihi</th>
+                    <th>Doğru Sayısı</th>
+                    <th>Yanlış Sayısı</th>
+                    <th>Oran</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item._id }}</td>
+                    <td>{{ item.question }}</td>
+                    <td class="answers-cell">
+                        <div class="answers-preview">{{ item.answers.0|truncatechars:50 }}</div>
+                        <div class="answers-full">
+                            {% for answer in item.answers %}
+                            <p>{{ answer }}</p>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.change_date }}</td>
+                    {% if collection == 'qa_data' %}
+                    <td>{{ item.approval_date }}</td>
+                    <td>{{ item.true_count.0 }}</td>
+                    <td>{{ item.false_count.0 }}</td>
+                    <td>{{ item.rate.0|floatformat:2 }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        {% if page > 1 %}
+        <button id="prevPage" class="btn">Önceki</button>
+        {% endif %}
+        <span class="page-info">Sayfa {{ page }}</span>
+        <button id="nextPage" class="btn">Sonraki</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const answersElements = document.querySelectorAll('.answers-cell');
+        answersElements.forEach(element => {
+            element.addEventListener('click', function () {
+                this.classList.toggle('expanded');
+            });
+        });
+
+        const collectionSelect = document.getElementById('collectionSelect');
+        collectionSelect.addEventListener('change', function () {
+            window.location.href = `?collection=${this.value}&page=1`;
+        });
+
+        const prevButton = document.getElementById('prevPage');
+        const nextButton = document.getElementById('nextPage');
+        const currentPage = { page };
+
+        if (prevButton) {
+            prevButton.addEventListener('click', function () {
+                window.location.href = `?collection={{ collection }}&page=${currentPage - 1}`;
+            });
+        }
+
+        nextButton.addEventListener('click', function () {
+            window.location.href = `?collection={{ collection }}&page=${currentPage + 1}`;
+        });
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+    });
+</script>
+{% endblock %}

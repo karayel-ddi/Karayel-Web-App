@@ -1,0 +1,56 @@
+{% extends 'mainApp/base.html' %}
+
+{% block title %}Veri Giriş{% endblock %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'mainApp/css/submit.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <form class="form" id="data-form" action="{% url 'submit' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="question">Soru:</label>
+                <input type="text" id="question" name="question" required>
+            </div>
+            <div class="form-group">
+                <label for="answer">Cevap:</label>
+                <textarea id="answer" name="answer" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="category">Kategori:</label>
+                <select id="category" name="category" required>
+                    <option value="Q&A Task" selected>Q&A Task</option>
+                </select>
+            </div>
+            <button type="submit" class="form-submit-btn">Gönder</button>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+            </ul>
+            {% endif %}
+        </form>
+    </div>
+    <div class="progress-section">
+        <h3 class="progress-title">İlerlemeniz</h3>
+        <p class="progress-motivation">Her soru, bizim için büyük bir adımdır.</p>
+        <div class="progress-container">
+            {% for i in progress_steps %}
+            <div class="progress-box {% if progress_count >= i %}active{% endif %}">
+                <div class="checkbox"></div>
+                <div class="progress-text">{{ i }}. soru</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if progress_count >= 6 %}
+        <p class="progress-thanks">Teşekkürler! Katkınız için minnettarız.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

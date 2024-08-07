@@ -1,0 +1,96 @@
+{% extends 'mainApp/base.html' %}
+{% load static %}
+{% block title %}Karayel Q&A{% endblock %}
+
+{% block content %}
+<div id="home-section"></div>
+<div class="intro-section">
+    <div class="intro-column left-column">
+        <h1 class="intro-title">Amacımız</h1>
+    </div>
+    <div class="intro-column right-column">
+        <p>Misyonumuz, yüksek kaliteli ve insan tarafından üretilmiş veriler toplayarak Türkçe Büyük Dil Modeli (LLM)
+            çalışmalarımızda kullanmak, Teknofest 2024 yarışmasında projemizi sunmak ve Türkçe Yapay Zeka çalışmalarına
+            katkı sağlamaktır.
+        </p>
+        <p>Teknofest Yarışması sonrasında anonim olarak topladığımız verileri açık kaynak olarak KARAYEL takımımızın
+            Github hesabında yayımlayacağız. Bu açık erişim yaklaşımımızın temel nedeni: Yapay Zeka topluluğu içinde
+            şeffaflığı ve iş birliğini teşvik ederken, araştırmacıların ve meraklıların bu kolektif bilgi birikiminden
+            faydalanmasını ve üzerine inşa etmesini sağlamak.</p>
+        <p>Katılımınız tamamen gönüllülük esasına dayalıdır ve girdilerinizi çok önemsediğimizi bilmenizi isteriz.
+            Hiçbir kişisel veri olmadan yalnız soru-cevap verisi girmenizi bekliyoruz. Katkılarınız, Yapay Zeka
+            Modellerinin neler başarabileceğinin sınırlarını zorlamamıza yardımcı olurken ekosisteme oldukça büyük katkı
+            sağlayacaktır.
+        </p>
+        <p>Bu dönüştürücü yolculuğun bir parçası olduğunuz için teşekkür ederiz!</p>
+    </div>
+</div>
+
+<div class="cardRow">
+    <div class="card-container">
+        <div class="card" id="veriGirisiCard">
+            <div class="card playing">
+                <div class="wave wave-right"></div>
+                <div class="wave wave-right"></div>
+                <div class="wave wave-right"></div>
+            </div>
+            <div class="front-content">
+                <h1 class="title">Veri Girişi</h1>
+            </div>
+            <div class="back-content">
+                <p class="title">Veri Gir</p><br>
+                <p>Veri ekleme sayfasında, araştırma projemize katkıda bulunmak için soru-cevap verisi girebilirsiniz.
+                    Gireceğiniz veriler, Türkçe Büyük Dil Modeli (LLM) çalışmalarımızda kullanılacak ve bu modelin gelişimine
+                    katkı sağlayacaktır.</p><br>
+                <a href="{% url 'submit' %}" class="buttonsubmit">
+                    Sayfaya Git
+                    <div class="hoverEffect">
+                        <div></div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-container">
+        <div class="card" id="veriDogrulamaCard">
+            <div class="card playing">
+                <div class="wave wave-left"></div>
+                <div class="wave wave-left"></div>
+                <div class="wave wave-left"></div>
+            </div>
+            <div class="front-content">
+                <h1 class="title">Veri Doğrulama</>
+            </div>
+            <div class="back-content">
+                <p class="title">Veri Doğrula</p><br>
+                <p>Veri doğrulama sayfasında, başkaları tarafından girilmiş verileri inceleyerek doğruluğunu
+                    onaylayabilirsiniz. Bu, modelimizin doğru ve güvenilir verilerle eğitilmesine yardımcı olacaktır.</p><br>
+                <a href="{% url 'validate' %}" class="buttonsubmit">
+                    Sayfaya Git
+                    <div class="hoverEffect">
+                        <div></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="about-section" id="about-section">
+    <div class="intro-column left-column">
+        <h1 class="intro-title">Hakkımızda</h1>
+    </div>
+    <div class="intro-column right-column">
+        <p>Doğal Dil İşleme projeleri geliştirmek hedefiyle 2024 yılında kurulan KARAYEL, Yapay Zekanın etkisiyle dil
+            ile etkileşim biçimimizi dönüştürmeyi amaçlayan bir ekiptir. Ekibimizin temel amacı, Türkçe Doğal Dil İşleme
+            çalışmaları gerçekleştirmek ve TEKNOFEST gibi ulusal ve uluslararası yarışmalarda yer almaktır.</p>
+        <p>KARAYEL'de güncel araştırmalara odaklanarak Yapay Zekadaki en son gelişmeleri pratik uygulamalarla
+            birleştiren projeler gerçekleştiriyoruz. Karmaşık Doğal Dil İşleme araçları geliştirmekten, akıllı sohbet
+            robotları oluşturmaya kadar, Yapay Zekayı herkes için daha sezgisel ve erişilebilir hale getirmeye
+            kararlıyız. Gençlerin teknolojik ilerlemeyi yönlendirme gücüne inanıyoruz ve Yapay Zekanın bir sonraki öncü
+            neslini temsil etmekten gurur duyuyoruz.</p>
+        <p>Çıktığımız bu yolculuğumuzda, yeni zirvelere ulaşmaya devam ederken bizi takipte kalın!</p>
+    </div>
+</div>
+{% endblock %}

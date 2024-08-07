@@ -1,0 +1,81 @@
+{% extends 'mainApp/base.html' %}
+
+{% block title %}Veri Doğrulama - Karayel Q&A{% endblock %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'mainApp/css/validate.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="card-container">
+    <div class="cardvalidate" id="validationCard">
+        <div class="question-container">
+            <h3 class="question">{{ question_text }}</h3>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {% if num_answers > 1 %}
+            {% for index, answer in enumerated_answers %}
+            <div class="answer-container">
+                <p class="question">{{ answer }}</p>
+                <label class="radio-label" for="answer-yes-{{ index }}">
+                    <input type="radio" id="answer-yes-{{ index }}" name="answer-{{ index }}" value="true">
+                    <span>Doğru</span>
+                </label>
+                <label class="radio-label" for="answer-no-{{ index }}">
+                    <input type="radio" id="answer-no-{{ index }}" name="answer-{{ index }}" value="false">
+                    <span class="false">Yanlış</span>
+                </label>
+            </div>
+            {% endfor %}
+            <div class="button-container">
+                <button type="submit" name="send_selected_answers" class="btn-add">Gönder</button>
+                <button type="button" id="addButton" class="btn-add">Cevap Ekle</button>
+            </div>
+            {% else %}
+            <p class="answer">Cevap: {{ answers.0 }}</p>
+            <div class="button-container">
+                <button type="submit" name="true_button" class="btn-true">Doğru</button>
+                <button type="submit" name="false_button" class="btn-false">Yanlış</button>
+                <button type="button" id="addButton" class="btn-add">Cevap Ekle</button>
+            </div>
+            {% endif %}
+            <input type="hidden" name="question_id" value="{{ question_id }}">
+        </form>
+    </div>
+
+    <div class="hidden animated-card" id="newCard">
+        <button type="button" id="backButton" class="btn-back">
+            <span class="arrow"></span> Geri
+        </button>
+        <form class="submit-form" method="post">
+            {% csrf_token %}
+            <h1>Sizin Cevabınız</h1>
+            <div class="form-group">
+                <label for="yourAnswer">Cevabınız:</label>
+                <input type="text" id="yourAnswer" name="yourAnswer" required>
+                <input type="hidden" name="question_id" value="{{ question_id }}">
+            </div>
+            <button type="submit" name="add_button" id="submitAnswer">Gönder</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById('addButton').addEventListener('click', function () {
+        document.getElementById('newCard').classList.add('entry');
+        document.getElementById('newCard').classList.add('show');
+        document.getElementById('newCard').classList.remove('hidden');
+        document.getElementById('validationCard').classList.add('hidden');
+    });
+
+    document.getElementById('backButton').addEventListener('click', function () {
+        document.getElementById('newCard').classList.remove('show');
+        document.getElementById('newCard').classList.add('exit');
+        setTimeout(() => {
+            document.getElementById('newCard').classList.add('hidden');
+            document.getElementById('validationCard').classList.remove('hidden');
+            document.getElementById('newCard').classList.remove('exit');
+        }, 500);
+    });
+</script>
+{% endblock %}

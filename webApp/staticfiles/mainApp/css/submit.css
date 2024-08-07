@@ -1,0 +1,180 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-container {
+    width: 60%;
+    max-width: 700px;
+    background: linear-gradient(#f8f9fa, #f8f9fa) padding-box,
+        linear-gradient(145deg, transparent 35%, #799ee7, #d463ca, #ee5382) border-box;
+    border: 2px solid transparent;
+    padding: 32px 24px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background-size: 200% 100%;
+    animation: gradient 5s ease infinite;
+    margin: 20px auto;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.form-container .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-container .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.form-container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #717171;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.form-container .form-group input,
+.form-container .form-group textarea,
+.form-container .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #333;
+    font-family: inherit;
+    background-color: transparent;
+    border: 1px solid #414141;
+    resize: vertical;
+}
+
+.form-container .form-group input::placeholder {
+    opacity: 0.5;
+}
+
+.form-container .form-group input:focus,
+.form-container .form-group textarea:focus,
+.form-container .form-group select:focus {
+    outline: none;
+    border-color: #799ee7;
+}
+
+.form-container .form-group select {
+    width: 40%;
+    font-size: 14px;
+}
+
+.form-container .form-submit-btn {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: flex-start;
+    font-family: inherit;
+    color: #e8e8e8;
+    font-weight: 600;
+    width: 40%;
+    background: #636363;
+    border: 1px solid #414141;
+    padding: 12px 16px;
+    font-size: inherit;
+    gap: 8px;
+    margin-top: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.form-container .form-submit-btn:hover {
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.form-container button:active {
+    scale: 0.95;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.progress-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.progress-box .checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 10px;
+}
+
+.progress-box.active .checkbox {
+    background-color: #4caf50;
+}
+
+.progress-text {
+    font-size: 16px;
+    color: #333;
+}
+
+.progress-section {
+    margin-top: 20px;
+    margin-right: auto;
+}
+
+.progress-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.progress-motivation {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.progress-thanks {
+    font-size: 18px;
+    color: #4caf50;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}

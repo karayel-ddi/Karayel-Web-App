@@ -1,0 +1,45 @@
+{% extends 'mainApp/base.html' %}
+
+{% block title %}Admin Paneli - Karayel Q&A{% endblock %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'mainApp/css/admin_panel.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Admin Paneli</h1>
+<div class="card-container">
+    {% for question in questions %}
+    <div class="card">
+        <div class="card-content">
+            <p><strong>Soru:</strong> {{ question.question }}</p>
+            {% if question.answers|length > 1 %}
+            <p><strong>Önceki Cevaplar:</strong></p>
+            <ul>
+                {% for old_answer in question.old_answers %}
+                <li>{{ old_answer }}</li>
+                {% endfor %}
+            </ul>
+            <p><strong>En Son Cevap:</strong> {{ question.new_answer }}</p>
+            {% else %}
+            <p><strong>Cevap:</strong> {{ question.answers.0 }}</p>
+            {% endif %}
+            <p><strong>Kategori:</strong> {{ question.category }}</p>
+            <p><strong>Yükleme Tarihi:</strong> {{ question.change_date }}</p>
+            <div class="card-actions">
+                <form method="post" action="{% url 'approve_question' question.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button class="btn-approve" type="submit">Onayla</button>
+                </form>
+                <form method="post" action="{% url 'delete_question' question.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button class="btn-delete" type="submit">Sil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

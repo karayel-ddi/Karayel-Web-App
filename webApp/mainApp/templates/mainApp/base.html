@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Karayel Q&A{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'mainApp/css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'mainApp/images/icon.ico' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'mainApp/images/logo.png' %}" alt="Logo" class="logo">
+            </a>
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="{% url 'index' %}">Ana Sayfa</a></li>
+            <li><a href="#about-section" class="scroll-link">Hakkımızda</a></li>
+            {% if request.session.username %}
+            <li><a href="{% url 'admin_panel' %}">Admin Paneli</a></li>
+            <li><a href="{% url 'data_view' %}">Veri Görüntüle</a></li>
+            <li><a href="{% url 'logout' %}">Çıkış Yap</a></li>
+            {% else %}
+            <li class="login-link"><a href="{% url 'login' %}">Giriş Yap</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://huggingface.co/Karayel-DDI" target="_blank" class="social-link">
+                    <img src="{% static 'mainApp/images/huggingface.svg' %}" alt="Hugging Face" class="social-icon">
+                </a>
+                <a href="https://github.com/karayel-ddi" target="_blank" class="social-link">
+                    <img src="{% static 'mainApp/images/github.svg' %}" alt="GitHub" class="social-icon">
+                </a>
+            </div>
+            <div class="footer-text">
+                <p>&copy; 2024 Karayel</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="{% static 'mainApp/js/script.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>
